@@ -8,6 +8,7 @@ public class NflSpotlightApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(NflSpotlightApplication.class, args);
+        System.out.println("Hello World!");
     }
 
 }
