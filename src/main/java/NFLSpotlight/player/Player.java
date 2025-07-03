@@ -18,16 +18,24 @@ public class Player {
 
     private int g;
     private float cmp;
-    private float passAtt;
-    private float passYds;
-    private float passTD;
-    private float interceptions;
-    private float passerRating;
+    @Column(name = "passatt")
+    private Float passAtt;
+    @Column(name = "passyds")
+    private Float passYds;
+    @Column(name = "passtd")
+    private Float passTD;
+    @Column(name = "int")
+    private Float interceptions;
+    @Column(name = "passerrating")
+    private Float passerRating;
 
-    private int rushAtt;
-    private int rushYds;
-    private int rushTD;
-    private int fumbles;
+    @Column(name = "rushatt")
+    private Integer rushAtt;
+    @Column(name = "rushyds")
+    private Integer rushYds;
+    @Column(name = "rushtd")
+    private Integer rushTD;
+    private Integer fumbles;
 
     private Integer targets;      // nullable
     private Integer receptions;   // nullable
@@ -35,13 +43,15 @@ public class Player {
     private Integer recTD;        // nullable
     private Float catchPct;       // nullable
 
-    private int xpm;
-    private int xpa;
-    private int fgm;
-    private int fga;
+    private Integer xpm;
+    private Integer xpa;
+    private Integer fgm;
+    private Integer fga;
 
-    private float fantasyPointsK;
-    private float ptsPerGameK;
+    @Column(name = "fantasypoints_k")
+    private Float fantasyPointsK;
+    @Column(name = "pts_per_game_k")
+    private Float ptsPerGameK;
 
     public Player() {}
 
@@ -271,5 +281,36 @@ public class Player {
 
     public void setPtsPerGameK(float ptsPerGameK) {
         this.ptsPerGameK = ptsPerGameK;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "player='" + player + '\'' +
+                ", team='" + team + '\'' +
+                ", pos='" + pos + '\'' +
+                ", g=" + g +
+                ", cmp=" + cmp +
+                ", passAtt=" + passAtt +
+                ", passYds=" + passYds +
+                ", passTD=" + passTD +
+                ", interceptions=" + interceptions +
+                ", passerRating=" + passerRating +
+                ", rushAtt=" + rushAtt +
+                ", rushYds=" + rushYds +
+                ", rushTD=" + rushTD +
+                ", fumbles=" + fumbles +
+                ", targets=" + targets +
+                ", receptions=" + receptions +
+                ", recYds=" + recYds +
+                ", recTD=" + recTD +
+                ", catchPct=" + catchPct +
+                ", xpm=" + xpm +
+                ", xpa=" + xpa +
+                ", fgm=" + fgm +
+                ", fga=" + fga +
+                ", fantasyPointsK=" + fantasyPointsK +
+                ", ptsPerGameK=" + ptsPerGameK +
+                '}';
     }
 }

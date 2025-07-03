@@ -1,14 +1,13 @@
 package NFLSpotlight.player;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-@Component
+@Service
 public class PlayerService {
 
     @Autowired
@@ -23,28 +22,20 @@ public class PlayerService {
     }
 
     public List<Player> getPlayersByTeam(String team) {
-        return playerRepository.findAll().stream()
-                .filter(player -> team.equals(player.getTeam()))
-                .collect(Collectors.toList());
+        return playerRepository.findByTeam(team);
     }
 
-    public List<Player> getPlayersByName(String searchText) {
-        return playerRepository.findAll().stream()
-                .filter(player -> player.getPlayer().toLowerCase().contains(searchText.toLowerCase()))
-                .collect(Collectors.toList());
+    public Optional<Player> getPlayerByName(String searchText) {
+        return playerRepository.findByPlayer(searchText);
     }
 
     public List<Player> getPlayersByPosition(String searchText) {
-        return playerRepository.findAll().stream()
-                .filter(player -> player.getPos().toLowerCase().contains(searchText.toLowerCase()))
-                .collect(Collectors.toList());
+        return playerRepository.findByPos(searchText);
 
     }
 
     public List<Player> getPlayersByTeamAndPosition(String team, String position) {
-        return playerRepository.findAll().stream()
-                .filter(player -> team.equals(player.getTeam()) && position.equals(player.getPos()))
-                .collect(Collectors.toList());
+        return playerRepository.findByTeamAndPos(team, position);
     }
 
     public Player addPlayer(Player player) {
@@ -53,7 +44,7 @@ public class PlayerService {
     }
 
     public Player updatePlayer(Player updatedPlayer) {
-        Optional<Player> existingPlayer = playerRepository.findByName(updatedPlayer.getPlayer());
+        Optional<Player> existingPlayer = playerRepository.findByPlayer(updatedPlayer.getPlayer());
 
         if (existingPlayer.isPresent()) {
             Player playerToUpdate = existingPlayer.get();
@@ -70,6 +61,6 @@ public class PlayerService {
 
     @Transactional
     public void deletePlayer(String removedPlayer) {
-        playerRepository.deleteByName(removedPlayer);
+        playerRepository.deleteByPlayer(removedPlayer);
     }
 }
